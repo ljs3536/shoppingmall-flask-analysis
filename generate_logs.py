@@ -1,0 +1,70 @@
+from datetime import datetime, timedelta
+import random
+from elasticsearch import Elasticsearch, helpers
+
+# Elasticsearch 연결
+es = Elasticsearch("http://localhost:9200")
+
+# 샘플 데이터 정의
+usernames = ["user01", "user02", "user03", "user04", "user05","user06","user07","user08","user09","user10"]
+regions = ["서울", "대전", "부산", "광주", "인천","대구","울산","강릉","전주","천안"]
+genders = ["남", "여"]
+ages = list(range(10, 60))  # 10세~60세
+products = [
+    {"name": "노트북1", "price": 11200000, "category": "전자제품"},
+    {"name": "스마트폰1", "price": 1900000, "category": "전자제품"},
+    {"name": "헤드폰1", "price": 2150000, "category": "전자제품"},
+    {"name": "노트북2", "price": 1200000, "category": "전자제품"},
+    {"name": "스마트폰2", "price": 900000, "category": "전자제품"},
+    {"name": "헤드폰2", "price": 50000, "category": "전자제품"},
+    {"name": "노트북3", "price": 200000, "category": "전자제품"},
+    {"name": "스마트폰3", "price": 90000, "category": "전자제품"},
+    {"name": "헤드폰3", "price": 250000, "category": "전자제품"},
+    {"name": "운동화", "price": 120000, "category": "패션"},
+    {"name": "청바지", "price": 50000, "category": "패션"},
+
+]
+
+# 데이터 생성 함수
+def generate_logs(days=365, num_logs_per_day=50):
+    actions = []
+    start_date = datetime.now() - timedelta(days=days)
+
+    for day in range(days):
+        log_date = start_date + timedelta(days=day)
+        for _ in range(num_logs_per_day):
+            user = random.choice(usernames)
+            age = random.choice(ages)
+            region = random.choice(regions)
+            gender = random.choice(genders)
+            product = random.choice(products)
+            quantity = random.randint(1, 5)
+
+            cart_log = {
+                "_index": "cart_products-logs",
+                "_source": {
+                    "timestamp": log_date.strftime("%Y-%m-%d"),
+                    "username": user,
+                    "userAge": age,
+                    "userRegion": region,
+                    "userGender": gender,
+                    "productName": product["name"],
+                    "productPrice": product["price"],
+                    "productCategory": product["category"],
+                    "productQuantity": quantity
+                }
+            }
+            actions.append(cart_log)
+
+            # 50% 확률로 주문 로그 생성
+            if random.random() < 0.5:
+                order_log = cart_log.copy()
+                order_log["_index"] = "order_products-logs"
+                actions.append(order_log)
+
+    # 데이터 Elasticsearch에 저장
+    helpers.bulk(es, actions)
+    print(f"{len(actions)}개의 로그가 생성되었습니다!")
+
+# 실행
+generate_logs()
