@@ -20,28 +20,44 @@ products = [
     {"name": "노트북3", "price": 200000, "category": "전자제품"},
     {"name": "스마트폰3", "price": 90000, "category": "전자제품"},
     {"name": "헤드폰3", "price": 250000, "category": "전자제품"},
-    {"name": "운동화", "price": 120000, "category": "패션"},
-    {"name": "청바지", "price": 50000, "category": "패션"},
-
+    {"name": "볼펜1", "price": 2000, "category": "생활용품"},
+    {"name": "볼펜2", "price": 4000, "category": "생활용품"},
+    {"name": "볼펜3", "price": 12000, "category": "생활용품"},
+    {"name": "가위1", "price": 3000, "category": "생활용품"},
+    {"name": "물티슈1", "price": 120000, "category": "생활용품"},
+    {"name": "물티슈2", "price": 20000, "category": "생활용품"},
+    {"name": "물티슈3", "price": 320000, "category": "생활용품"},
+    {"name": "휴지1", "price": 50000, "category": "생활용품"},
+    {"name": "운동화1", "price": 120000, "category": "패션"},
+    {"name": "청바지1", "price": 50000, "category": "패션"},
+    {"name": "운동화2", "price": 20000, "category": "패션"},
+    {"name": "청바지2", "price": 150000, "category": "패션"},
+    {"name": "핸드크림1", "price": 12000, "category": "화장품"},
+    {"name": "선크림1", "price": 30000, "category": "화장품"},
+    {"name": "핸드크림2", "price": 50000, "category": "화장품"},
+    {"name": "선크림2", "price": 22000, "category": "화장품"},
+    {"name": "핸드크림3", "price": 56000, "category": "화장품"},
+    {"name": "선크림3", "price": 10000, "category": "화장품"},
 ]
 
 # 데이터 생성 함수
-def generate_logs(days=365, num_logs_per_day=50):
+def generate_order_log(days=730, num_logs_per_day=100):
     actions = []
     start_date = datetime.now() - timedelta(days=days)
 
     for day in range(days):
         log_date = start_date + timedelta(days=day)
         for _ in range(num_logs_per_day):
-            user = random.choice(usernames)
+            index = random.randint(0, 9)
+            user = usernames[index]
             age = random.choice(ages)
-            region = random.choice(regions)
+            region = regions[index]
             gender = random.choice(genders)
             product = random.choice(products)
             quantity = random.randint(1, 5)
 
-            cart_log = {
-                "_index": "cart_products-logs",
+            order_log = {
+                "_index": "order_products-logs",
                 "_source": {
                     "timestamp": log_date.strftime("%Y-%m-%d"),
                     "username": user,
@@ -54,11 +70,11 @@ def generate_logs(days=365, num_logs_per_day=50):
                     "productQuantity": quantity
                 }
             }
-            actions.append(cart_log)
+            actions.append(order_log)
 
             # 50% 확률로 주문 로그 생성
             if random.random() < 0.5:
-                order_log = cart_log.copy()
+                order_log = order_log.copy()
                 order_log["_index"] = "order_products-logs"
                 actions.append(order_log)
 
@@ -67,4 +83,5 @@ def generate_logs(days=365, num_logs_per_day=50):
     print(f"{len(actions)}개의 로그가 생성되었습니다!")
 
 # 실행
-generate_logs()
+generate_order_log()
+
