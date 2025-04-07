@@ -85,5 +85,3 @@ def generate_cart_log(days=730, num_logs_per_day=40):
     helpers.bulk(es, actions)
     print(f"{len(actions)}개의 로그가 생성되었습니다!")
 
-# 실행
-generate_cart_log()

@@ -2,9 +2,9 @@ from flask import Flask, jsonify, request
 from elasticsearch import Elasticsearch
 from generate_cart_logs import generate_cart_log
 from generate_order_logs import generate_order_log
-from search_handler import get_yearly_sales
+from search_handler import get_yearly_sales, get_age_group_favorites, get_region_favorites, get_monthly_category_trend, get_gender_favorites
 from train_order_product_model import train_model_and_save
-from predict_order_product_model import predict_quantity
+from predict_order_product_model import predict_quantity_pipeline
 
 app = Flask(__name__)
 
@@ -48,19 +48,22 @@ def get_sales_by_year():
     data = get_yearly_sales(year)
     return jsonify(data)
 
-@app.route("/predict/train", methods=["POST"])
-def train_model():
-    result = train_model_and_save()
-    return jsonify(result)
+@app.route("/search/products/age", methods=["GET"])
+def age_group_favorites():
+    return jsonify(get_age_group_favorites())
 
-@app.route("/predict/product", methods=["GET"])
-def predict_product_quantity():
-    product_name = request.args.get("productName")
-    if not product_name:
-        return jsonify({"error": "productName parameter is required"}), 400
+@app.route("/search/products/region", methods=["GET"])
+def region_favorites():
+    return jsonify(get_region_favorites())
 
-    result = predict_quantity(product_name)
-    return jsonify(result)
+@app.route("/search/products/trend", methods=["GET"])
+def monthly_trend():
+    return jsonify(get_monthly_category_trend())
+
+@app.route("/search/products/gender", methods=["GET"])
+def gender_favorites():
+    return jsonify(get_gender_favorites())
+
 
 if __name__ == "__main__":
     app.run(debug=True)
