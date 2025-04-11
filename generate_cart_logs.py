@@ -25,48 +25,40 @@ regions = ["서울", "대전", "부산", "광주", "인천","대구","울산","�
            ,"서울", "대전", "부산", "광주", "서울","대구","세종","강릉","세종","서울"
            ,"서울", "대전", "부산", "광주", "인천","대구","울산","강릉","전주","천안"]
 genders = ["남", "여"]
-ages = list(range(10, 60))
+ages = list(range(10, 80))
 products = [  # 동일한 제품 리스트 유지
-    {"name": "노트북1", "price": 11200000, "category": "전자제품"},
-    {"name": "스마트폰1", "price": 1900000, "category": "전자제품"},
-    {"name": "헤드폰1", "price": 2150000, "category": "전자제품"},
-    {"name": "노트북2", "price": 1200000, "category": "전자제품"},
-    {"name": "스마트폰2", "price": 900000, "category": "전자제품"},
-    {"name": "헤드폰2", "price": 50000, "category": "전자제품"},
-    {"name": "볼펜1", "price": 2000, "category": "생활용품"},
-    {"name": "볼펜2", "price": 4000, "category": "생활용품"},
-    {"name": "볼펜3", "price": 12000, "category": "생활용품"},
-    {"name": "가위1", "price": 3000, "category": "생활용품"},
-    {"name": "물티슈1", "price": 120000, "category": "생활용품"},
-    {"name": "물티슈2", "price": 20000, "category": "생활용품"},
-    {"name": "물티슈3", "price": 320000, "category": "생활용품"},
-    {"name": "휴지1", "price": 50000, "category": "생활용품"},
-    {"name": "볼펜1", "price": 2000, "category": "생활용품"},
-    {"name": "볼펜2", "price": 4000, "category": "생활용품"},
-    {"name": "볼펜3", "price": 12000, "category": "생활용품"},
-    {"name": "가위1", "price": 3000, "category": "생활용품"},
-    {"name": "물티슈1", "price": 120000, "category": "생활용품"},
-    {"name": "물티슈2", "price": 20000, "category": "생활용품"},
-    {"name": "물티슈3", "price": 320000, "category": "생활용품"},
-    {"name": "휴지1", "price": 50000, "category": "생활용품"},
-    {"name": "운동화1", "price": 120000, "category": "패션"},
-    {"name": "청바지1", "price": 50000, "category": "패션"},
-    {"name": "운동화2", "price": 20000, "category": "패션"},
-    {"name": "청바지2", "price": 150000, "category": "패션"},
-    {"name": "코트1", "price": 2000000, "category": "패션"},
-    {"name": "코트2", "price": 250000, "category": "패션"},
-    {"name": "코트3", "price": 8000000, "category": "패션"},
-    {"name": "가디건1", "price": 100000, "category": "패션"},
-    {"name": "가디건2", "price": 150000, "category": "패션"},
-    {"name": "가디건3", "price": 80000, "category": "패션"},
-    {"name": "핸드크림1", "price": 12000, "category": "화장품"},
-    {"name": "선크림1", "price": 30000, "category": "화장품"},
-    {"name": "핸드크림2", "price": 50000, "category": "화장품"},
-    {"name": "선크림2", "price": 22000, "category": "화장품"},
-    {"name": "핸드크림3", "price": 56000, "category": "화장품"},
-    {"name": "선크림3", "price": 10000, "category": "화장품"},
+    {"name": "노트북1", "price": 11200000, "category": "전자제품", "sellerId": "testseller1"},
+    {"name": "스마트폰1", "price": 1900000, "category": "전자제품", "sellerId": "testseller1"},
+    {"name": "헤드폰1", "price": 2150000, "category": "전자제품", "sellerId": "testseller1"},
+    {"name": "노트북2", "price": 1200000, "category": "전자제품", "sellerId": "testseller1"},
+    {"name": "스마트폰2", "price": 900000, "category": "전자제품", "sellerId": "testseller1"},
+    {"name": "헤드폰2", "price": 50000, "category": "전자제품", "sellerId": "testseller1"},
+    {"name": "볼펜1", "price": 2000, "category": "생활용품", "sellerId": "testseller1"},
+    {"name": "볼펜2", "price": 4000, "category": "생활용품", "sellerId": "testseller1"},
+    {"name": "볼펜3", "price": 12000, "category": "생활용품", "sellerId": "testseller1"},
+    {"name": "가위1", "price": 3000, "category": "생활용품", "sellerId": "testseller1"},
+    {"name": "물티슈1", "price": 120000, "category": "생활용품", "sellerId": "testseller1"},
+    {"name": "물티슈2", "price": 20000, "category": "생활용품", "sellerId": "testseller11"},
+    {"name": "물티슈3", "price": 320000, "category": "생활용품", "sellerId": "testseller11"},
+    {"name": "휴지1", "price": 50000, "category": "생활용품", "sellerId": "testseller12"},
+    {"name": "운동화1", "price": 120000, "category": "패션", "sellerId": "testseller13"},
+    {"name": "청바지1", "price": 50000, "category": "패션", "sellerId": "testseller13"},
+    {"name": "운동화2", "price": 20000, "category": "패션", "sellerId": "testseller13"},
+    {"name": "청바지2", "price": 150000, "category": "패션", "sellerId": "testseller13"},
+    {"name": "코트1", "price": 2000000, "category": "패션", "sellerId": "testseller13"},
+    {"name": "코트2", "price": 250000, "category": "패션", "sellerId": "testseller13"},
+    {"name": "코트3", "price": 8000000, "category": "패션", "sellerId": "testseller13"},
+    {"name": "가디건1", "price": 100000, "category": "패션", "sellerId": "testseller13"},
+    {"name": "가디건2", "price": 150000, "category": "패션", "sellerId": "testseller13"},
+    {"name": "가디건3", "price": 80000, "category": "패션", "sellerId": "testseller13"},
+    {"name": "핸드크림1", "price": 12000, "category": "화장품", "sellerId": "testseller12"},
+    {"name": "선크림1", "price": 30000, "category": "화장품", "sellerId": "testseller12"},
+    {"name": "핸드크림2", "price": 50000, "category": "화장품", "sellerId": "testseller12"},
+    {"name": "선크림2", "price": 22000, "category": "화장품", "sellerId": "testseller12"},
+    {"name": "핸드크림3", "price": 56000, "category": "화장품", "sellerId": "testseller12"},
+    {"name": "선크림3", "price": 10000, "category": "화장품", "sellerId": "testseller12"},
 ]
-def generate_cart_log(days=365*5, num_logs_per_day=80):
+def generate_cart_log(days=365*5):
     actions = []
     start_date = datetime.now() - timedelta(days=days)
 
@@ -75,6 +67,7 @@ def generate_cart_log(days=365*5, num_logs_per_day=80):
 
     for day in range(days):
         log_date = start_date + timedelta(days=day)
+        num_logs_per_day = random.randint(30, 200)
         for _ in range(num_logs_per_day):
             index = random.randint(0, 99)
             user = usernames[index]
@@ -96,13 +89,14 @@ def generate_cart_log(days=365*5, num_logs_per_day=80):
                 "_source": {
                     "timestamp": log_date.strftime("%Y-%m-%d"),
                     "actionType": actionType,
-                    "username": user,
+                    "userId": user,
                     "userAge": age,
                     "userRegion": region,
                     "userGender": gender,
                     "productName": product["name"],
                     "productPrice": product["price"],
                     "productCategory": product["category"],
+                    "sellerId": product["sellerId"],
                     "productQuantity": quantity
                 }
             }
@@ -119,4 +113,4 @@ def generate_cart_log(days=365*5, num_logs_per_day=80):
     print(f"{len(actions)}개의 장바구니 로그가 생성되었습니다!")
 
 # 실행 시
-generate_cart_log()
+#generate_cart_log()
