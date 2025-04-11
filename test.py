@@ -3,6 +3,7 @@ import pickle
 import os
 from elasticsearch import Elasticsearch
 import matplotlib.pyplot as plt
+from sklearn.metrics.pairwise import cosine_similarity
 from xgboost import XGBRegressor
 from prophet import Prophet
 from statsmodels.tsa.statespace.sarimax import SARIMAX
@@ -15,7 +16,7 @@ from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.tree import DecisionTreeRegressor
 from xgboost import XGBRegressor
 
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
@@ -119,3 +120,79 @@ def train_timeseries_model():
 
     #plot_ts(df_product2, "blue", 0.25, 'Original')
 
+def encode_user_info(user_info, feature_columns):
+    # 입력된 유저 정보를 수치형으로 인코딩
+    user_df = pd.DataFrame([user_info])
+
+    # 범주형 수치화
+    user_encoded = pd.get_dummies(user_df, columns=["region", "gender"])
+
+    # 누락된 더미 컬럼 추가 (product_user_features 기준과 일치시키기 위해)
+    for col in feature_columns:
+        if col not in user_encoded.columns:
+            user_encoded[col] = 0
+
+    # 컬럼 순서 정렬 (동일하게 맞춰줘야 함)
+    user_encoded = user_encoded[feature_columns]
+
+    return user_encoded
+
+
+def train_recommend_model():
+    es = Elasticsearch("http://localhost:9200")
+    index_name = "order_products-logs"
+    data = fetch_all_es_data(index_name, es)
+    df = pd.DataFrame(data)
+
+    # 컬럼명 정리
+    df["timestamp"] = pd.to_datetime(df["timestamp"])
+    df["userId"] = df["userId"].astype(str)
+    df["productName"] = df["productName"].astype(str)
+
+    df.rename(columns={
+        "userAge": "age",
+        "userGender": "gender",
+        "userRegion": "region",
+        "productName": "product"
+    }, inplace=True)
+    print(df)
+    user_features = df[["userId", "region", "age", "gender"]].drop_duplicates()
+    # 1. 범주형 수치화 (user 정보)
+    user_features_encoded = pd.get_dummies(user_features.set_index("userId"), columns=["region", "gender"])
+
+    # 2. 유저 정보를 df에 merge
+    df_merged = df.drop(columns=["orderType"]).merge(user_features_encoded, on="userId")
+
+    # 3. 문자열 컬럼 제거 (평균 계산에 필요한 수치형 컬럼만 남기기)
+    df_numeric = df_merged.drop(columns=["region","gender","product", "userId", "sellerId", "productCategory", "timestamp"])
+
+    # 4. 제품별 사용자 특성 평균
+    product_user_features = df_numeric.groupby(df_merged["product"]).mean()
+
+    # 5. 표준화
+    scaler = StandardScaler()
+    scaled_features = scaler.fit_transform(product_user_features)
+
+    # 6. 유사도 계산
+    similarity = cosine_similarity(scaled_features)
+    similarity_df = pd.DataFrame(similarity, index=product_user_features.index, columns=product_user_features.index)
+
+    user_info= {
+        "gender" : "남",
+        "age" : 23,
+        "region" : "대전"
+    }
+    print(similarity_df.columns)
+    user_vector = encode_user_info(user_info, similarity_df.columns).values.reshape(1, -1)
+    print(user_vector)
+    # 유사도 계산 (1xN)
+    product_vectors = similarity_df.values  # 각 row는 product vector
+    product_names = similarity_df.index
+    print(product_vectors)
+    cos_scores = cosine_similarity(user_vector, product_vectors).flatten()  # 유사도 점수 (1차원)
+    top_n_idx = cos_scores.argsort()[::-1][:5]  # 높은 순서 Top 5
+
+    top_products = product_names[top_n_idx].tolist()
+    print(top_products)
+
+train_recommend_model()

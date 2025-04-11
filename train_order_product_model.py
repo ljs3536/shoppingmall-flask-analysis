@@ -21,7 +21,7 @@ from sklearn.pipeline import Pipeline
 from scipy.sparse import csr_matrix
 from implicit.als import AlternatingLeastSquares
 
-model_dir = "model_storage"
+model_dir = "model_storage/predict"
 os.makedirs(model_dir, exist_ok=True)
 
 def fetch_all_es_data(index_name, es, scroll='2m', size=1000):
