@@ -6,6 +6,9 @@ from sklearn.decomposition import TruncatedSVD
 from xgboost import XGBClassifier
 import pickle, os
 from sklearn.neighbors import NearestNeighbors
+from gensim.models import Word2Vec
+from lightfm import LightFM
+from lightfm.data import Dataset as LFM_Dataset
 
 model_dir = "model_storage/recommend"
 os.makedirs(model_dir, exist_ok=True)
@@ -185,6 +188,48 @@ def train_recommendation_model(algo_name: str):
             pickle.dump(model_data, f)
 
         return {"message": "k-NN recommendation model trained and saved."}
+
+    elif algo_name == "item2vec":
+        # 유저별 구매 시퀀스 생성
+        user_sequence = df.groupby("userId")["product"].apply(list).tolist()
+
+        # Word2Vec 훈련 (Skip-gram 방식)
+        model = Word2Vec(sentences=user_sequence, vector_size=50, window=5, min_count=1, sg=1, workers=4)
+
+        model_data = {
+            "item2vec_model": model,
+            "product_list": list(model.wv.index_to_key)
+        }
+
+        with open(model_path, "wb") as f:
+            pickle.dump(model_data, f)
+
+        return {"message": "Item2Vec 모델이 학습되고 저장되었습니다."}
+
+
+    elif algo_name == "lightfm":
+        # LightFM용 Dataset 준비
+        lfm_dataset = LFM_Dataset()
+        lfm_dataset.fit(df["userId"], df["product"])
+
+        # 상호작용 데이터 (binary format)
+        interactions, _ = lfm_dataset.build_interactions([
+            (row["userId"], row["product"]) for _, row in df.iterrows()
+        ])
+
+        # 모델 생성 및 학습 (WARP 손실함수 사용)
+        model = LightFM(loss="warp")
+        model.fit(interactions, epochs=10, num_threads=2)
+
+        model_data = {
+            "model": model,
+            "dataset": lfm_dataset
+        }
+
+        with open(model_path, "wb") as f:
+            pickle.dump(model_data, f)
+
+        return {"message": "LightFM 모델이 학습되고 저장되었습니다."}
 
     else:
         raise ValueError(f"Unsupported recommendation model: {algo_name}")
