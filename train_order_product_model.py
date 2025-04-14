@@ -74,7 +74,7 @@ def train_timeseries_model(algo_name: str):
 
     for product in monthly_sales["productName"].unique():
         df_product = monthly_sales[monthly_sales["productName"] == product].copy()
-        # 🔹 누락된 월 채우기 (보간)
+        # 누락된 월 채우기 (보간)
         all_months = pd.date_range(
             start=monthly_sales["year_month"].min(),
             end=monthly_sales["year_month"].max(),

@@ -13,6 +13,22 @@ app = Flask(__name__)
 # Elasticsearch 연결 (Docker 컨테이너에서 실행 중일 경우)
 es = Elasticsearch("http://localhost:9200")
 
+@app.route("/search", methods=["GET"])
+def search_logs():
+    keyword = request.args.get("keyword", "")
+    index_name = "access-log"  # 로그가 저장된 인덱스 이름
+
+    query = {
+        "query": {
+            "match": {
+                "userId": keyword
+            }
+        }
+    }
+
+    res = es.search(index=index_name, body=query)
+    return jsonify(res["hits"]["hits"])
+
 # /generate/cart 엔드포인트
 @app.route('/generate/cart', methods=['GET'])
 def generate_cart_logs():

@@ -34,18 +34,18 @@ def predict_recommendation_pipeline(user_info: dict, algo: str):
 
     if algo == "content":
         # 콘텐츠 기반: 사용자와 유사한 product feature 찾기
-        similarity_df = model_data
+        similarity_df = model_data["similarity_df"]
+        feature_columns = model_data["feature_columns"]
         # 사용자 벡터 생성
-        user_vector = encode_user_info(user_info, similarity_df.columns).values.reshape(1, -1)
-
+        user_vector = encode_user_info(user_info, feature_columns.columns).values.reshape(1, -1)
         # 유사도 계산 (1xN)
-        product_vectors = similarity_df.values  # 각 row는 product vector
-        product_names = similarity_df.index
+        product_vectors = model_data["scaled_features"]
+        product_names = model_data["product_names"]
 
         cos_scores = cosine_similarity(user_vector, product_vectors).flatten()  # 유사도 점수 (1차원)
-        top_n_idx = cos_scores.argsort()[::-1][:5]  # 높은 순서 Top 5
+        top_n_idx = cos_scores.argsort()[::-1][:10]  # 높은 순서 Top 5
 
-        top_products = product_names[top_n_idx].tolist()
+        top_products = [product_names[i] for i in top_n_idx]
         return {
             "algorithm": algo,
             "recommended_products": top_products

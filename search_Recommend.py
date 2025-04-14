@@ -163,6 +163,7 @@ def get_highRatedProducts(sellerId=None):
         }
     res = es.search(index=reviewEs, body=body)
     buckets = res['aggregations']['top_reviews']['buckets']
+    
     result = []
     for b in buckets:
         result.append({
@@ -206,6 +207,5 @@ def get_trendingProducts(sellerId=None):
         scores[product] += score
 
     sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-    print(sorted_scores[:10])
     return [{"name": name, "score": round(score, 2)} for name, score in sorted_scores[:10]]
 

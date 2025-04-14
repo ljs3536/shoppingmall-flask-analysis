@@ -85,7 +85,7 @@ def train_timeseries_model():
 
     for product in monthly_sales["productName"].unique():
         df_product = monthly_sales[monthly_sales["productName"] == product].copy()
-        # 🔹 누락된 월 채우기 (보간)
+        # 누락된 월 채우기 (보간)
         all_months = pd.date_range(
             start=monthly_sales["year_month"].min(),
             end=monthly_sales["year_month"].max(),
@@ -128,6 +128,7 @@ def encode_user_info(user_info, feature_columns):
     user_encoded = pd.get_dummies(user_df, columns=["region", "gender"])
 
     # 누락된 더미 컬럼 추가 (product_user_features 기준과 일치시키기 위해)
+
     for col in feature_columns:
         if col not in user_encoded.columns:
             user_encoded[col] = 0
@@ -156,7 +157,7 @@ def train_recommend_model():
         "productName": "product"
     }, inplace=True)
     print(df)
-    user_features = df[["userId", "region", "age", "gender"]].drop_duplicates()
+    user_features = df[["userId", "region", "gender"]].drop_duplicates()
     # 1. 범주형 수치화 (user 정보)
     user_features_encoded = pd.get_dummies(user_features.set_index("userId"), columns=["region", "gender"])
 
@@ -164,8 +165,8 @@ def train_recommend_model():
     df_merged = df.drop(columns=["orderType"]).merge(user_features_encoded, on="userId")
 
     # 3. 문자열 컬럼 제거 (평균 계산에 필요한 수치형 컬럼만 남기기)
-    df_numeric = df_merged.drop(columns=["region","gender","product", "userId", "sellerId", "productCategory", "timestamp"])
-
+    df_numeric = df_merged.drop(columns=["productPrice","productQuantity","region","gender","product", "userId", "sellerId", "productCategory", "timestamp"])
+    print(df_numeric)
     # 4. 제품별 사용자 특성 평균
     product_user_features = df_numeric.groupby(df_merged["product"]).mean()
 
@@ -182,12 +183,12 @@ def train_recommend_model():
         "age" : 23,
         "region" : "대전"
     }
-    print(similarity_df.columns)
-    user_vector = encode_user_info(user_info, similarity_df.columns).values.reshape(1, -1)
+    print(similarity_df.values)
+    user_vector = encode_user_info(user_info, product_user_features.columns).values.reshape(1, -1)
     print(user_vector)
     # 유사도 계산 (1xN)
-    product_vectors = similarity_df.values  # 각 row는 product vector
-    product_names = similarity_df.index
+    product_vectors = scaled_features  # 각 row는 product vector
+    product_names = product_user_features.index
     print(product_vectors)
     cos_scores = cosine_similarity(user_vector, product_vectors).flatten()  # 유사도 점수 (1차원)
     top_n_idx = cos_scores.argsort()[::-1][:5]  # 높은 순서 Top 5

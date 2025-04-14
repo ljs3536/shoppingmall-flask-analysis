@@ -7,8 +7,6 @@ from xgboost import XGBClassifier
 import pickle, os
 from sklearn.neighbors import NearestNeighbors
 from gensim.models import Word2Vec
-from lightfm import LightFM
-from lightfm.data import Dataset as LFM_Dataset
 
 model_dir = "model_storage/recommend"
 os.makedirs(model_dir, exist_ok=True)
@@ -82,8 +80,14 @@ def train_recommendation_model(algo_name: str):
         similarity = cosine_similarity(scaled_features)
         similarity_df = pd.DataFrame(similarity, index=product_user_features.index, columns=product_user_features.index)
 
+        model = {
+            "similarity_df": similarity_df,
+            "feature_columns": product_user_features,
+            "scaled_features": scaled_features,
+            "product_names": product_user_features.index.tolist()  # product 이름 리스트
+        }
         with open(model_path, "wb") as f:
-            pickle.dump(similarity_df, f)
+            pickle.dump(model, f)
 
         return {"message": "Content-based filtering model trained and saved."}
 
@@ -204,32 +208,7 @@ def train_recommendation_model(algo_name: str):
         with open(model_path, "wb") as f:
             pickle.dump(model_data, f)
 
-        return {"message": "Item2Vec 모델이 학습되고 저장되었습니다."}
-
-
-    elif algo_name == "lightfm":
-        # LightFM용 Dataset 준비
-        lfm_dataset = LFM_Dataset()
-        lfm_dataset.fit(df["userId"], df["product"])
-
-        # 상호작용 데이터 (binary format)
-        interactions, _ = lfm_dataset.build_interactions([
-            (row["userId"], row["product"]) for _, row in df.iterrows()
-        ])
-
-        # 모델 생성 및 학습 (WARP 손실함수 사용)
-        model = LightFM(loss="warp")
-        model.fit(interactions, epochs=10, num_threads=2)
-
-        model_data = {
-            "model": model,
-            "dataset": lfm_dataset
-        }
-
-        with open(model_path, "wb") as f:
-            pickle.dump(model_data, f)
-
-        return {"message": "LightFM 모델이 학습되고 저장되었습니다."}
+        return {"message": "Item2Vec model trained and saved."}
 
     else:
         raise ValueError(f"Unsupported recommendation model: {algo_name}")
