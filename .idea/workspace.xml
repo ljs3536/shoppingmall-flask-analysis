@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="da4f98cb-7bf3-4040-9649-4001a680249d" name="Changes" comment="Update" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ljs3536&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ljs3536/shoppingmall-flask-analysis.git&quot;,
+    &quot;accountId&quot;: &quot;dce82653-4592-4fe0-b81b-55d88f31d43d&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2vNReFeMUzfSEHkaGk6lu9jI4BP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "D:/work/study/shoppingmall-flask-analysis",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\work\study\shoppingmall-flask-analysis" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\work\study\shoppingmall-flask-analysis" />
+      <recent name="D:\work\study\shoppingmall-flask-analysis\app" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-4f4e415b4190-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.26053.29" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="da4f98cb-7bf3-4040-9649-4001a680249d" name="Changes" comment="" />
+      <created>1743983639045</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743983639045</updated>
+    </task>
+    <task id="LOCAL-00001" summary="generate_cart, generate_order 구분, model 생성, 결과값 로직 구분 처리, 데이터 search 구분">
+      <option name="closed" value="true" />
+      <created>1743989472581</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743989472581</updated>
+    </task>
+    <task id="LOCAL-00002" summary="generate 수정, 통계 정보 추가">
+      <option name="closed" value="true" />
+      <created>1744014655740</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1744014655740</updated>
+    </task>
+    <task id="LOCAL-00003" summary="generate 수정&#10;&#10;조금 더 광범위한 데이터를 삽입하도록 정보 추가 및&#10;orderType 데이터 추가 처리&#10;cart actionType 추가 처리 로직 구현">
+      <option name="closed" value="true" />
+      <created>1744090662298</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1744090662298</updated>
+    </task>
+    <task id="LOCAL-00004" summary="추천 통계 정보 추가 및 추천 분석 모델 생성, 예측 구현 &#10;&#10;review 데이터를 활용한 부분 추가&#10;판매 예측 로직 수정&#10;활용 가능한 model 수정 및 전처리 수정 예정">
+      <option name="closed" value="true" />
+      <created>1744338060991</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1744338060991</updated>
+    </task>
+    <task id="LOCAL-00005" summary="generate 로직 수정, recommend content 기반 로직 수정">
+      <option name="closed" value="true" />
+      <created>1744358566455</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1744358566455</updated>
+    </task>
+    <task id="LOCAL-00006" summary="대용량 파일 문제로 삭제">
+      <option name="closed" value="true" />
+      <created>1744358750605</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1744358750605</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add git ignore">
+      <option name="closed" value="true" />
+      <created>1744359270612</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1744359270612</updated>
+    </task>
+    <task id="LOCAL-00008" summary="generate 수정 및 recommend content 로직 수정">
+      <option name="closed" value="true" />
+      <created>1744359585109</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1744359585109</updated>
+    </task>
+    <task id="LOCAL-00009" summary="content기반 추천 수정">
+      <option name="closed" value="true" />
+      <created>1744595654807</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1744595654807</updated>
+    </task>
+    <task id="LOCAL-00010" summary="git ignore 추가">
+      <option name="closed" value="true" />
+      <created>1744705841437</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1744705841437</updated>
+    </task>
+    <task id="LOCAL-00011" summary="git ignore 추가">
+      <option name="closed" value="true" />
+      <created>1744705962088</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1744705962088</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Update">
+      <option name="closed" value="true" />
+      <created>1744768343495</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1744768343495</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Update">
+      <option name="closed" value="true" />
+      <created>1744768512231</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1744768512231</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="generate_cart, generate_order 구분, model 생성, 결과값 로직 구분 처리, 데이터 search 구분" />
+    <MESSAGE value="generate 수정, 통계 정보 추가" />
+    <MESSAGE value="generate 수정&#10;&#10;조금 더 광범위한 데이터를 삽입하도록 정보 추가 및&#10;orderType 데이터 추가 처리&#10;cart actionType 추가 처리 로직 구현" />
+    <MESSAGE value="추천 통계 정보 추가 및 추천 분석 모델 생성, 예측 구현 &#10;&#10;review 데이터를 활용한 부분 추가&#10;판매 예측 로직 수정&#10;활용 가능한 model 수정 및 전처리 수정 예정" />
+    <MESSAGE value="generate 로직 수정, recommend content 기반 로직 수정" />
+    <MESSAGE value="대용량 파일 문제로 삭제" />
+    <MESSAGE value="add git ignore" />
+    <MESSAGE value="generate 수정 및 recommend content 로직 수정" />
+    <MESSAGE value="content기반 추천 수정" />
+    <MESSAGE value="git ignore 추가" />
+    <MESSAGE value="Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update" />
+  </component>
+</project>
