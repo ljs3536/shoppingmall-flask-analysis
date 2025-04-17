@@ -7,7 +7,7 @@ from xgboost import XGBClassifier
 import pickle, os
 from sklearn.neighbors import NearestNeighbors
 from gensim.models import Word2Vec
-
+from config import Config
 model_dir = "model_storage/recommend"
 os.makedirs(model_dir, exist_ok=True)
 
@@ -36,7 +36,7 @@ def train_recommend_model_and_save(algo_name: str):
 
 
 def train_recommendation_model(algo_name: str):
-    es = Elasticsearch("http://elasticsearch-container:9200")
+    es = Elasticsearch(Config.ELASTICSEARCH_URI)
     index_name = "order_products-logs"
     data = fetch_all_es_data(index_name, es)
     df = pd.DataFrame(data)

@@ -4,11 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da4f98cb-7bf3-4040-9649-4001a680249d" name="Changes" comment="Update">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+    <list default="true" id="da4f98cb-7bf3-4040-9649-4001a680249d" name="Changes" comment="Docker Container 생성 완료">
+      <change afterPath="$PROJECT_DIR$/Jenkinsfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_cart_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate_cart_logs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_order_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate_order_logs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/search_Recommend.py" beforeDir="false" afterPath="$PROJECT_DIR$/search_Recommend.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/search_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/search_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_order_product_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_order_product_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_recommend_product_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_recommend_product_model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Dockerfile" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -54,7 +60,6 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "D:/work/study/shoppingmall-flask-analysis",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
@@ -197,7 +202,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744768835889</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Docker Container 생성 완료">
+      <option name="closed" value="true" />
+      <created>1744792164099</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1744792164099</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,6 +236,7 @@
     <MESSAGE value="content기반 추천 수정" />
     <MESSAGE value="git ignore 추가" />
     <MESSAGE value="Update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update" />
+    <MESSAGE value="Docker Container 생성 완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="Docker Container 생성 완료" />
   </component>
 </project>

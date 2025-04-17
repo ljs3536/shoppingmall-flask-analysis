@@ -2,7 +2,8 @@ from datetime import datetime, timedelta
 import random
 from elasticsearch import Elasticsearch, helpers
 
-es = Elasticsearch("http://elasticsearch-container:9200")
+from config import Config
+es = Elasticsearch(Config.ELASTICSEARCH_URI)
 
 products = [  # 동일한 제품 리스트 유지
     {"name": "노트북1", "price": 11200000, "category": "전자제품", "sellerId": "testseller1"},

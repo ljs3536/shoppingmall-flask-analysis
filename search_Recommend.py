@@ -3,7 +3,8 @@ from collections import defaultdict
 from datetime import datetime
 from math import log
 
-es = Elasticsearch("http://elasticsearch-container:9200")
+from config import Config
+es = Elasticsearch(Config.ELASTICSEARCH_URI)
 
 orderEs = "order_products-logs"
 cartEs = "cart_products-logs"

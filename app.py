@@ -8,10 +8,13 @@ from predict_order_product_model import predict_quantity_pipeline
 from train_recommend_product_model import train_recommend_model_and_save
 from predict_recommend_product_model import predict_recommendation_pipeline
 from search_Recommend import get_trendingProducts, get_addedCartProducts, get_moreSellingProducts, get_popularProducts_category, get_highRatedProducts
+
+
 app = Flask(__name__)
 
 # Elasticsearch 연결 (Docker 컨테이너에서 실행 중일 경우)
-es = Elasticsearch("http://elasticsearch-container:9200")
+from config import Config
+es = Elasticsearch(Config.ELASTICSEARCH_URI)
 
 @app.route("/search", methods=["GET"])
 def search_logs():

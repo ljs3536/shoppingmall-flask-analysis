@@ -7,7 +7,7 @@ from xgboost import XGBRegressor
 from prophet import Prophet
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.tsa.arima.model import ARIMA
-
+from config import Config
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -54,7 +54,8 @@ def train_predict_model_and_save(algo_name: str):
         raise ValueError(f"Unsupported or invalid algorithm: {algo_name}")
 
 def train_timeseries_model(algo_name: str):
-    es = Elasticsearch("http://elasticsearch-container:9200")
+
+    es = Elasticsearch(Config.ELASTICSEARCH_URI)
     index_name = "order_products-logs"
     data = fetch_all_es_data(index_name, es)
     df = pd.DataFrame(data)

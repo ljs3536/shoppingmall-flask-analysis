@@ -2,7 +2,8 @@ from elasticsearch import Elasticsearch
 from collections import defaultdict
 import pandas as pd
 
-es = Elasticsearch("http://elasticsearch-container:9200")
+from config import Config
+es = Elasticsearch(Config.ELASTICSEARCH_URI)
 index_name = "order_products-logs"
 
 def get_yearly_sales(year: str):
