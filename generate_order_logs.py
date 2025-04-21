@@ -89,7 +89,7 @@ def generate_order_log(days=365*5):
                 "productPrice": product["price"],
                 "productCategory": product["category"],
                 "sellerId": product["sellerId"],
-                "productQuantity": quantity
+                "productQuantity": float(quantity)
             }
 
             order_actions.append({
@@ -114,9 +114,9 @@ def generate_order_log(days=365*5):
                     "productName": product["name"],
                     "productPrice": product["price"],
                     "productCategory": product["category"],
-                    "productQuantity": quantity,
+                    "productQuantity": float(quantity),
                     "sellerId": product["sellerId"],
-                    "rating": rating,
+                    "rating": float(rating),
                     "description": description
                 }
 
