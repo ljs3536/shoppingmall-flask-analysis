@@ -24,4 +24,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: your-dockerhub-id/your-image-name:latest
+          tags: ljs3536/shoppingmall-flask:latest
