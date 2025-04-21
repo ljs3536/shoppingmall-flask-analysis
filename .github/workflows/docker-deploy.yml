@@ -3,7 +3,7 @@ name: CI/CD to DockerHub
 on:
   push:
     branches:
-      - main  # 혹은 사용 중인 브랜치
+      - master  # 혹은 사용 중인 브랜치
 
 jobs:
   build-and-push:
