@@ -8,10 +8,10 @@ from predict_order_product_model import predict_quantity_pipeline
 from train_recommend_product_model import train_recommend_model_and_save
 from predict_recommend_product_model import predict_recommendation_pipeline
 from search_Recommend import get_trendingProducts, get_addedCartProducts, get_moreSellingProducts, get_popularProducts_category, get_highRatedProducts
-
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
-
+metrics = PrometheusMetrics(app)
 # Elasticsearch 연결 (Docker 컨테이너에서 실행 중일 경우)
 from config import Config
 es = Elasticsearch(Config.ELASTICSEARCH_URI)
@@ -131,4 +131,4 @@ def predict_product_recommend():
     return jsonify(result)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=6000, debug=True)
