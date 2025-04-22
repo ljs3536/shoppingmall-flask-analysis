@@ -12,6 +12,11 @@ from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
+
+@app.route("/")
+def index():
+    return "Hello, Prometheus!"
+
 # Elasticsearch 연결 (Docker 컨테이너에서 실행 중일 경우)
 from config import Config
 es = Elasticsearch(Config.ELASTICSEARCH_URI)
@@ -131,4 +136,4 @@ def predict_product_recommend():
     return jsonify(result)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=6000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
