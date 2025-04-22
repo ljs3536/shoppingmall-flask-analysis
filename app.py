@@ -11,7 +11,7 @@ from search_Recommend import get_trendingProducts, get_addedCartProducts, get_mo
 from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
-metrics = PrometheusMetrics(app)
+metrics = PrometheusMetrics(app, path='/metrics')
 
 @app.route("/")
 def index():
