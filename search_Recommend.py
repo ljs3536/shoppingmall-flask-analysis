@@ -28,7 +28,7 @@ def get_moreSellingProducts(sellerId=None):
         "aggs": {
             "top_products": {
                 "terms": {
-                    "field": "productName.keyword",
+                    "field": "productName",
                     "size": 10
                 }
             }
@@ -37,7 +37,7 @@ def get_moreSellingProducts(sellerId=None):
     if sellerId:
         body["query"]["bool"]["filter"].append({
             "term": {
-                "sellerId.keyword": sellerId
+                "sellerId": sellerId
             }
         })
     else:
@@ -53,7 +53,7 @@ def get_popularProducts_category(sellerId=None):
     if sellerId:
         query_filter.append({
             "term": {
-                "sellerId.keyword": sellerId
+                "sellerId": sellerId
             }
         })
 
@@ -62,12 +62,12 @@ def get_popularProducts_category(sellerId=None):
         "aggs": {
             "by_category": {
                 "terms": {
-                    "field": "productCategory.keyword"
+                    "field": "productCategory"
                 },
                 "aggs": {
                     "top_products": {
                         "terms": {
-                            "field": "productName.keyword",
+                            "field": "productName",
                             "size": 5
                         }
                     }
@@ -97,9 +97,9 @@ def get_popularProducts_category(sellerId=None):
 
 # 3. 장바구니에 많이 담긴 상품 (잠재 인기)
 def get_addedCartProducts(sellerId=None):
-    query_filter = [{"term": {"actionType.keyword": "ADD"}}]
+    query_filter = [{"term": {"actionType": "ADD"}}]
     if sellerId:
-        query_filter.append({"term": {"sellerId.keyword": sellerId}})
+        query_filter.append({"term": {"sellerId": sellerId}})
 
     body = {
         "size": 0,
@@ -111,7 +111,7 @@ def get_addedCartProducts(sellerId=None):
         "aggs": {
             "popular_cart_items": {
                 "terms": {
-                    "field": "productName.keyword",
+                    "field": "productName",
                     "size": 10
                 }
             }
@@ -128,7 +128,7 @@ def get_highRatedProducts(sellerId=None):
     if sellerId:
         query_filter.append({
             "term": {
-                "sellerId.keyword": sellerId
+                "sellerId": sellerId
             }
         })
 
@@ -137,7 +137,7 @@ def get_highRatedProducts(sellerId=None):
         "aggs": {
             "top_reviews": {
                 "terms": {
-                    "field": "productName.keyword",
+                    "field": "productName",
                     "size": 10
                 },
                 "aggs": {
@@ -181,7 +181,7 @@ def get_trendingProducts(sellerId=None):
     if sellerId:
         query_filter.append({
             "term": {
-                "sellerId.keyword": sellerId
+                "sellerId": sellerId
             }
         })
 
