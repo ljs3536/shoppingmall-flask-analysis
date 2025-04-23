@@ -17,6 +17,10 @@ metrics = PrometheusMetrics(app, path='/metrics')
 def index():
     return "Hello, Prometheus!"
 
+@app.route("/metrics")
+def metrics_check():
+    return "metrics working"
+
 # Elasticsearch 연결 (Docker 컨테이너에서 실행 중일 경우)
 from config import Config
 es = Elasticsearch(Config.ELASTICSEARCH_URI)

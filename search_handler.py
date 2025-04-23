@@ -20,7 +20,7 @@ def get_yearly_sales(year: str):
         "aggs": {
             "products": {
                 "terms": {
-                    "field": "productName.keyword",
+                    "field": "productName",
                     "size": 1000  # 연도 내 상품 종류 수가 많으면 늘리기
                 },
                 "aggs": {
@@ -58,7 +58,7 @@ def get_age_group_favorites():
                 "aggs": {
                     "top_products": {
                         "terms": {
-                            "field": "productName.keyword",
+                            "field": "productName",
                             "size": 1,
                             "order": {"total_quantity": "desc"}
                         },
@@ -94,13 +94,13 @@ def get_gender_favorites():
         "aggs": {
             "gender_groups": {
                 "terms": {
-                    "field": "userGender.keyword",  # 예: "M", "F"
+                    "field": "userGender",  # 예: "M", "F"
                     "size": 10
                 },
                 "aggs": {
                     "top_products": {
                         "terms": {
-                            "field": "productName.keyword",
+                            "field": "productName",
                             "size": 1,
                             "order": {"total_quantity": "desc"}
                         },
@@ -136,13 +136,13 @@ def get_region_favorites():
         "aggs": {
             "region_groups": {
                 "terms": {
-                    "field": "userRegion.keyword",
+                    "field": "userRegion",
                     "size": 20
                 },
                 "aggs": {
                     "top_products": {
                         "terms": {
-                            "field": "productName.keyword",
+                            "field": "productName",
                             "size": 1,
                             "order": {"total_quantity": "desc"}
                         },
@@ -185,7 +185,7 @@ def get_monthly_category_trend():
                 "aggs": {
                     "category": {
                         "terms": {
-                            "field": "productCategory.keyword",
+                            "field": "productCategory",
                             "size": 20
                         },
                         "aggs": {
