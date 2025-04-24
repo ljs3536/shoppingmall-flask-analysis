@@ -94,7 +94,7 @@ def get_gender_favorites():
         "aggs": {
             "gender_groups": {
                 "terms": {
-                    "field": "userGender",  # 예: "M", "F"
+                    "field": "userGender.keyword",  # 예: "M", "F"
                     "size": 10
                 },
                 "aggs": {
@@ -136,13 +136,13 @@ def get_region_favorites():
         "aggs": {
             "region_groups": {
                 "terms": {
-                    "field": "userRegion",
+                    "field": "userRegion.keyword",
                     "size": 20
                 },
                 "aggs": {
                     "top_products": {
                         "terms": {
-                            "field": "productName",
+                            "field": "productName.keyword",
                             "size": 1,
                             "order": {"total_quantity": "desc"}
                         },
