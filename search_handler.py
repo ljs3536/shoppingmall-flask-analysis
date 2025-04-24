@@ -20,7 +20,7 @@ def get_yearly_sales(year: str):
         "aggs": {
             "products": {
                 "terms": {
-                    "field": "productName",
+                    "field": "productName.keyword",
                     "size": 1000  # 연도 내 상품 종류 수가 많으면 늘리기
                 },
                 "aggs": {
@@ -58,7 +58,7 @@ def get_age_group_favorites():
                 "aggs": {
                     "top_products": {
                         "terms": {
-                            "field": "productName",
+                            "field": "productName.keyword",
                             "size": 1,
                             "order": {"total_quantity": "desc"}
                         },
@@ -100,7 +100,7 @@ def get_gender_favorites():
                 "aggs": {
                     "top_products": {
                         "terms": {
-                            "field": "productName",
+                            "field": "productName.keyword",
                             "size": 1,
                             "order": {"total_quantity": "desc"}
                         },
@@ -185,7 +185,7 @@ def get_monthly_category_trend():
                 "aggs": {
                     "category": {
                         "terms": {
-                            "field": "productCategory",
+                            "field": "productCategory.keyword",
                             "size": 20
                         },
                         "aggs": {
