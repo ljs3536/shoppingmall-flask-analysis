@@ -28,7 +28,7 @@ def get_moreSellingProducts(sellerId=None):
         "aggs": {
             "top_products": {
                 "terms": {
-                    "field": "productName",
+                    "field": "productName.keyword",
                     "size": 10
                 }
             }
@@ -62,12 +62,12 @@ def get_popularProducts_category(sellerId=None):
         "aggs": {
             "by_category": {
                 "terms": {
-                    "field": "productCategory"
+                    "field": "productCategory.keyword"
                 },
                 "aggs": {
                     "top_products": {
                         "terms": {
-                            "field": "productName",
+                            "field": "productName.keyword",
                             "size": 5
                         }
                     }
@@ -137,7 +137,7 @@ def get_highRatedProducts(sellerId=None):
         "aggs": {
             "top_reviews": {
                 "terms": {
-                    "field": "productName",
+                    "field": "productName.keyword",
                     "size": 10
                 },
                 "aggs": {

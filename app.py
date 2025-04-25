@@ -9,6 +9,8 @@ from train_recommend_product_model import train_recommend_model_and_save
 from predict_recommend_product_model import predict_recommendation_pipeline
 from search_Recommend import get_trendingProducts, get_addedCartProducts, get_moreSellingProducts, get_popularProducts_category, get_highRatedProducts
 from prometheus_flask_exporter import PrometheusMetrics
+from urllib.parse import unquote
+import numpy as np
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app, path='/metrics')
@@ -108,13 +110,36 @@ def train_predict_model():
 
 @app.route("/predict/product", methods=["GET"])
 def predict_product_quantity():
-    product_name = request.args.get("productName")
+    # URL 인코딩된 productName 파라미터 가져오기
+    encoded_product_name = request.args.get('productName', '')
+
+    # URL 디코딩하여 원래 한글로 변환
+    product_name = unquote(encoded_product_name)
     algo_name = request.args.get("algo", default="linear")
+
     print(product_name, " : " , algo_name)
     if not product_name:
         return jsonify({"error": "productName parameter is required"}), 400
 
     result = predict_quantity_pipeline(product_name, algo_name)
+
+    def convert_numpy_types(obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        elif isinstance(obj, (np.float32, np.float64)):
+            return float(obj)
+        elif isinstance(obj, (np.int32, np.int64)):
+            return int(obj)
+        elif isinstance(obj, dict):
+            return {k: convert_numpy_types(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [convert_numpy_types(i) for i in obj]
+        else:
+            return obj
+
+    # 결과 변환
+    result = convert_numpy_types(result)
+
     return jsonify(result)
 
 @app.route("/recommend/train", methods=["POST"])
@@ -136,4 +161,4 @@ def predict_product_recommend():
     return jsonify(result)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host='0.0.0.0', port=6000, debug=True)
