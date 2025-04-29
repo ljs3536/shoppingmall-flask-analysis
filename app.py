@@ -11,9 +11,44 @@ from search_Recommend import get_trendingProducts, get_addedCartProducts, get_mo
 from prometheus_flask_exporter import PrometheusMetrics
 from urllib.parse import unquote
 import numpy as np
+from kafka import KafkaConsumer
+import config
+import threading
+import json
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app, path='/metrics')
+app.config.from_object(config.Config)
+
+def kafka_consumer_job():
+    consumer = KafkaConsumer(
+        app.config['KAFKA_TOPIC'],
+        bootstrap_servers=app.config['KAFKA_BOOTSTRAP_SERVERS'],
+        group_id=app.config['KAFKA_CONSUMER_GROUP_ID'],
+        value_deserializer=lambda m: json.loads(m.decode('utf-8')),
+        auto_offset_reset='earliest',
+        enable_auto_commit=True
+    )
+    for message in consumer:
+        data = message.value
+        algo_name = data.get('algo_name')
+        uri = data.get('uri')
+        print(f"Kafka 메시지 수신: {algo_name}")
+        print(f"uri: {uri}")
+        if "predict" in uri:
+            predict_train_model(algo_name)
+        else:
+            recommend_train_model(algo_name)
+
+def predict_train_model(algo_name):
+    print(f"모델 학습 시작: {algo_name}")
+    result = train_predict_model_and_save(algo_name)
+    print(result)
+
+def recommend_train_model(algo_name):
+    print(f"모델 학습 시작: {algo_name}")
+    result = train_recommend_model_and_save(algo_name)
+    print(result)
 
 @app.route("/")
 def index():
@@ -161,4 +196,8 @@ def predict_product_recommend():
     return jsonify(result)
 
 if __name__ == "__main__":
+    kafka_thread = threading.Thread(target=kafka_consumer_job)
+    kafka_thread.daemon = True
+    kafka_thread.start()
+
     app.run(host='0.0.0.0', port=6000, debug=True)
