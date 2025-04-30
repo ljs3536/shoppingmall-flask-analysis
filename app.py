@@ -12,6 +12,7 @@ from prometheus_flask_exporter import PrometheusMetrics
 from urllib.parse import unquote
 import numpy as np
 from kafka import KafkaConsumer
+from kafka import KafkaProducer
 import config
 import threading
 import json
@@ -20,35 +21,52 @@ app = Flask(__name__)
 metrics = PrometheusMetrics(app, path='/metrics')
 app.config.from_object(config.Config)
 
+producer = KafkaProducer(
+    bootstrap_servers=app.config['KAFKA_BOOTSTRAP_SERVERS'],
+    value_serializer=lambda v: json.dumps(v).encode('utf-8')
+)
+
+def notify_model_trained(algo_name, model_type, status, log_id):
+    producer.send(app.config['KAFKA_RESULT_TOPIC'], {
+        'algo_name': algo_name,
+        'model_type': model_type,
+        'status': status,  # e.g., 'success' or 'fail'
+        'log_id': log_id
+    })
+    producer.flush()
+
 def kafka_consumer_job():
     consumer = KafkaConsumer(
         app.config['KAFKA_TOPIC'],
         bootstrap_servers=app.config['KAFKA_BOOTSTRAP_SERVERS'],
         group_id=app.config['KAFKA_CONSUMER_GROUP_ID'],
         value_deserializer=lambda m: json.loads(m.decode('utf-8')),
-        auto_offset_reset='earliest',
+        auto_offset_reset='latest',
         enable_auto_commit=True
     )
     for message in consumer:
         data = message.value
         algo_name = data.get('algo_name')
         uri = data.get('uri')
+        log_id = data.get('log_id')
         print(f"Kafka 메시지 수신: {algo_name}")
         print(f"uri: {uri}")
         if "predict" in uri:
-            predict_train_model(algo_name)
+            predict_train_model(algo_name, log_id)
         else:
-            recommend_train_model(algo_name)
+            recommend_train_model(algo_name, log_id)
 
-def predict_train_model(algo_name):
+def predict_train_model(algo_name, log_id):
     print(f"모델 학습 시작: {algo_name}")
     result = train_predict_model_and_save(algo_name)
     print(result)
+    notify_model_trained(algo_name, 'predict', 'success', log_id)
 
-def recommend_train_model(algo_name):
+def recommend_train_model(algo_name, log_id):
     print(f"모델 학습 시작: {algo_name}")
     result = train_recommend_model_and_save(algo_name)
     print(result)
+    notify_model_trained(algo_name, 'recommend', 'success', log_id)
 
 @app.route("/")
 def index():
@@ -200,4 +218,4 @@ if __name__ == "__main__":
     kafka_thread.daemon = True
     kafka_thread.start()
 
-    app.run(host='0.0.0.0', port=6000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)
