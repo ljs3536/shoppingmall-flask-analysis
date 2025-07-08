@@ -8,7 +8,7 @@ import pickle, os
 from sklearn.neighbors import NearestNeighbors
 from gensim.models import Word2Vec
 from config import Config
-model_dir = "model_storage/recommend"
+model_dir = "/app/model_storage/recommend"
 os.makedirs(model_dir, exist_ok=True)
 
 def fetch_all_es_data(index_name, es, scroll='2m', size=1000):

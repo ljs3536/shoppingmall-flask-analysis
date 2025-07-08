@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
-model_dir = "model_storage/recommend"
+model_dir = "/app/model_storage/recommend"
 
 def encode_user_info(user_info, feature_columns):
     # 입력된 유저 정보를 수치형으로 인코딩

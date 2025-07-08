@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from dateutil.relativedelta import relativedelta
 
-model_dir = "model_storage/predict"
+model_dir = "/app/model_storage/predict"
 
 def predict_quantity_pipeline(product_name: str, algo: str):
     model_path = os.path.join(model_dir, f"model_{algo}.pkl")
