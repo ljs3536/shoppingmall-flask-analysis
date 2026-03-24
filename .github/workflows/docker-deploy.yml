@@ -42,10 +42,16 @@ jobs:
           sed -i "s|image: ljs3536/shoppingmall-flask:.*|image: ljs3536/shoppingmall-flask:${{ github.sha }}|g" infra-repo/k8s/flask-deployment.yaml
 
       - name: Push Changes to Springboot Repo
+        env:
+          MY_TOKEN: ${{ secrets.REPO_TOKEN }}
         run: |
           cd infra-repo
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 토큰을 주소에 포함시켜 인증 에러 방지
+          git remote set-url origin https://x-access-token:${MY_TOKEN}@github.com/ljs3536/shoppingmall.git
+          
           git add k8s/flask-deployment.yaml
           git commit -m "Deploy: Update Flask image to ${{ github.sha }}"
-          git push
+          git push origin master
