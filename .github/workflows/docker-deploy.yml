@@ -12,7 +12,15 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-
+        
+      # 1. springboot 레포지토리를 별도 폴더로 체크아웃
+      - name: Checkout Springboot Repo (Infra)
+        uses: actions/checkout@v3
+        with:
+          repository: ljs3536/shoppingmall # 실제 레포 이름
+          token: ${{ secrets.REPO_TOKEN }} # 생성한 PAT 사용
+          path: infra-repo # 다운로드 받을 폴더명
+          
       - name: Log in to DockerHub
         uses: docker/login-action@v3
         with:
@@ -27,3 +35,17 @@ jobs:
           tags: |
             ljs3536/shoppingmall-flask:latest
             ljs3536/shoppingmall-flask:${{ github.sha }}
+
+      - name: Update Flask YAML in Springboot Repo
+        run: |
+          # infra-repo 폴더 안에 있는 yaml 파일을 수정
+          sed -i "s|image: ljs3536/shoppingmall-flask:.*|image: ljs3536/shoppingmall-flask:${{ github.sha }}|g" infra-repo/k8s/flask-deployment.yaml
+
+      - name: Push Changes to Springboot Repo
+        run: |
+          cd infra-repo
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add k8s/flask-deployment.yaml
+          git commit -m "Deploy: Update Flask image to ${{ github.sha }}"
+          git push
