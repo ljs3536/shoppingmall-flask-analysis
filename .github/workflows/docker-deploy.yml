@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: ljs3536/shoppingmall # 실제 레포 이름
-          token: ${{ secrets.REPO_TOKEN }} # 생성한 PAT 사용
+          token: ${{ secrets.REPO_TOKEN }} # 생성한 PAT 사용 git setting의 secrets
           path: infra-repo # 다운로드 받을 폴더명
           
       - name: Log in to DockerHub
